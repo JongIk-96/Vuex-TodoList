@@ -1,11 +1,9 @@
 <template>
   <div id="app">
     <TodoHeader></TodoHeader>
-    <TodoInput v-on:addTodoItem="addOneItem"></TodoInput>
-    <TodoList v-bind:propsdata="todoItems"
-     v-on:removeItem="removeOneItem"
-     v-on:toggleItem="toggleOneItem"></TodoList>
-    <TodoFooter v-on:clearAll="clearAllItems"></TodoFooter>
+    <TodoInput></TodoInput>
+    <TodoList></TodoList>
+    <TodoFooter></TodoFooter>
   </div>
 </template>
 
@@ -21,37 +19,27 @@
         todoItems: []
       }
     },
-    methods: {
-      addOneItem(todoItem){
-        const obj = {completed: false, item: todoItem};
-        // 저장하는 로직
-        localStorage.setItem(todoItem, JSON.stringify(obj));
-        this.todoItems.push(obj);
-      },
+    methods: {   // mutation
+      // addOneItem(todoItem){
+      //   const obj = {completed: false, item: todoItem};
+      //   // 저장하는 로직
+      //   localStorage.setItem(todoItem, JSON.stringify(obj));
+      //   this.todoItems.push(obj);
+      // },
     
-      removeOneItem(todoItem, index){
-      this.todoItems.splice(index,1);
-      localStorage.removeItem(todoItem.item);
-      },    
-      toggleOneItem(todoItem, index){
-            this.todoItems[index].completed = !this.todoItems[index].completed; 
-            localStorage.removeItem(todoItem.item);
-            localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
-      },
-      clearAllItems(){
-        localStorage.clear();
-        this.todoItems = [];
-      }
-    },
-    createdn() {  
-        if(localStorage.length >0){
-            for(let i=0; i<localStorage.length; i++){
-              if(localStorage.key(i) !== 'loglevel:webpack-dev-servier'){
-                 //  console.log(JSON.parse(localStorage.getItem(localStorage.key(i))));
-                    this.todoItems.push(JSON.parse(localStorage.getItem(localStorage.key(i))));
-              }
-            }
-        }    
+      // removeOneItem(todoItem, index){
+      // this.todoItems.splice(index,1);
+      // localStorage.removeItem(todoItem.item);
+      // },    
+      // toggleOneItem(todoItem, index){
+      //       this.todoItems[index].completed = !this.todoItems[index].completed; 
+      //       localStorage.removeItem(todoItem.item);
+      //       localStorage.setItem(todoItem.item, JSON.stringify(todoItem));
+      // },
+      // clearAllItems(){
+      //   localStorage.clear();
+      //   this.todoItems = [];
+      // }
     },
     components: {
       TodoHeader,
